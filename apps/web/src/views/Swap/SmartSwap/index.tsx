@@ -1,6 +1,8 @@
 import { useDebounce } from '@pancakeswap/hooks'
 import { useTranslation } from '@pancakeswap/localization'
 import { Currency, CurrencyAmount, NATIVE, Percent } from '@pancakeswap/sdk'
+import SwapImg from '../../../../public/images/swap_title.png'
+import SubTitleImg from '../../../../public/images/trade.png'
 import {
   ArrowDownIcon,
   AutoColumn,
@@ -62,6 +64,10 @@ import { parseMMError, shouldShowMMError } from '../MMLinkPools/utils/exchange'
 import { SwapFeaturesContext } from '../SwapFeaturesContext'
 import SmartSwapCommitButton from './components/SmartSwapCommitButton'
 import { useDerivedSwapInfoWithStableSwap, useIsSmartRouterBetter, useTradeInfo } from './hooks'
+import Image from 'next/image'
+import styled from 'styled-components'
+
+import BackgroundInput from '../../../../public/images/inp_bg.png'
 
 export const SmartSwapForm: React.FC<{ handleOutputSelect: (newCurrencyOutput: Currency) => void }> = ({
   handleOutputSelect,
@@ -311,6 +317,9 @@ export const SmartSwapForm: React.FC<{ handleOutputSelect: (newCurrencyOutput: C
 
   const [onPresentSettingsModal] = useModal(<SettingsModal mode={SettingsMode.SWAP_LIQUIDITY} />)
 
+
+
+
   return (
     <>
       <MMAndAMMDealDisplay
@@ -323,8 +332,8 @@ export const SmartSwapForm: React.FC<{ handleOutputSelect: (newCurrencyOutput: C
         rfqId={mmRFQTrade?.rfqId}
       />
       <CurrencyInputHeader
-        title={t('Swap')}
-        subtitle={t('Trade tokens in an instant')}
+        titleImage={<Image src={SwapImg} alt="swap_title" height={100} width={100}  />}  
+        subtitleImage={<Image src={SubTitleImg} alt="sub_title" height={50} width={100}/>} 
         hasAmount={hasAmount}
         onRefreshPrice={onRefreshPrice}
       />
@@ -340,6 +349,7 @@ export const SmartSwapForm: React.FC<{ handleOutputSelect: (newCurrencyOutput: C
             onUserInput={handleTypeInput}
             onPercentInput={handlePercentInput}
             onMax={handleMaxInput}
+            back_img = {<Image src={BackgroundInput} alt="Bg-input" height={100} width={150} />}
             onCurrencySelect={handleInputSelect}
             otherCurrency={currencies[Field.OUTPUT]}
             id="swap-currency-input"
@@ -347,11 +357,7 @@ export const SmartSwapForm: React.FC<{ handleOutputSelect: (newCurrencyOutput: C
             showBUSD={!!tokenMap[chainId]?.[inputCurrencyId] || inputCurrencyId === NATIVE[chainId]?.symbol}
             commonBasesType={CommonBasesType.SWAP_LIMITORDER}
           />
-          {isAccessTokenSupported && inputCurrency?.isToken && (
-            <Box>
-              <AccessRisk token={inputCurrency} />
-            </Box>
-          )}
+        
 
           <AutoColumn justify="space-between">
             <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>

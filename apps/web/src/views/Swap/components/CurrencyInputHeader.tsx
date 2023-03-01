@@ -29,8 +29,8 @@ import { SettingsMode } from '../../../components/Menu/GlobalSettings/types'
 import { SwapFeaturesContext } from '../SwapFeaturesContext'
 
 interface Props {
-  title: string | ReactElement
-  subtitle: string
+  titleImage?: any
+  subtitleImage?: any
   noConfig?: boolean
   setIsChartDisplayed?: React.Dispatch<React.SetStateAction<boolean>>
   isChartDisplayed?: boolean
@@ -73,14 +73,21 @@ const ColoredIconButton = styled(IconButton)`
   }
 `
 
+
+
+
+
+
 //  disable this during the eth trust wallet campaign
 const mobileShowOnceTokenHighlightAtom = atomWithStorageWithErrorCatch('pcs::mobileShowOnceTokenHighlightV2', true)
 
 const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = ({
-  subtitle,
+  
   hasAmount,
   onRefreshPrice,
-  title,
+  titleImage,
+  subtitleImage
+
 }) => {
   const { t } = useTranslation()
   const [mobileTooltipShowOnce, setMobileTooltipShowOnce] = useAtom(mobileShowOnceTokenHighlightAtom)
@@ -95,10 +102,10 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = ({
     tooltip: campaignTooltip,
     tooltipVisible: campaignTooltipVisible,
     targetRef: campaignTargetRef,
-  } = useTooltip(<Text>{t('Trade and Share $10,000')}</Text>, {
-    placement: 'top',
+  } = useTooltip(<Text>{t('')}</Text>, {
+    placement: 'bottom',
     trigger: 'hover',
-    manualVisible: mobileCampaignTooltipShow,
+    
     avoidToStopPropagation: true,
   })
   const { isChartSupported, isChartDisplayed, setIsChartDisplayed } = useContext(SwapFeaturesContext)
@@ -136,14 +143,15 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = ({
   }, [mobileTooltipClickOutside])
 
   const titleContent = (
-    <Flex width="100%" alignItems="center" justifyContent="space-between" flexDirection="column">
-      <Flex flexDirection="column" alignItems="flex-start" width="100%" marginBottom={15}>
-        <Swap.CurrencyInputHeaderTitle>{title}</Swap.CurrencyInputHeaderTitle>
+    <Flex width="100%" alignItems="center" justifyContent="space-between" flexDirection="column"  >
+      <Flex flexDirection="column" alignItems="center" width="100%" marginBottom={15}>
+        <Swap.CurrencyInputHeaderTitle>  {titleImage} </Swap.CurrencyInputHeaderTitle>
       </Flex>
-      <Flex justifyContent="start" width="100%" height="17px" alignItems="center" mb="14px">
-        <Swap.CurrencyInputHeaderSubTitle>{subtitle}</Swap.CurrencyInputHeaderSubTitle>
+    
+      <Flex justifyContent="center" width="100%" height="17px" alignItems="center" mb="14px">
+        <Swap.CurrencyInputHeaderSubTitle>{subtitleImage}</Swap.CurrencyInputHeaderSubTitle>
       </Flex>
-      <Flex width="100%" justifyContent="end">
+      {/* <Flex width="100%" justifyContent="end">
         <>
           <ColoredIconButton className="is-shining" variant="text" scale="sm">
             <TooltipText
@@ -152,16 +160,7 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = ({
               onClick={() => setMobileCampaignTooltipShow(false)}
               style={{ justifyContent: 'center' }}
             >
-              <TrophyGoldIcon
-                onClick={() => {
-                  window.open(
-                    'https://medium.com/pancakeswap/introducing-market-maker-integration-on-ethereum-pancakeswap-trade-and-share-10-000-usdc-in-724df104716',
-                    '_blank',
-                    'noreferrer noopener',
-                  )
-                }}
-                width={27}
-              />
+             
             </TooltipText>
           </ColoredIconButton>
           {campaignTooltipVisible && campaignTooltip}
@@ -216,7 +215,7 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = ({
         <IconButton variant="text" scale="sm" onClick={handleOnClick}>
           <RefreshIcon disabled={!hasAmount} color="textSubtle" width="27px" />
         </IconButton>
-      </Flex>
+      </Flex> */}
     </Flex>
   )
 

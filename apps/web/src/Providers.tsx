@@ -42,6 +42,7 @@ const Providers: React.FC<React.PropsWithChildren<{ store: Store; children: Reac
         </NextThemeProvider>
       </Provider>
     </WagmiProvider>
+ 
   )
 }
 

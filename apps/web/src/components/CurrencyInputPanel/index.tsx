@@ -34,6 +34,7 @@ const CurrencySelectButton = styled(Button).attrs({ variant: 'text', scale: 'sm'
       border: 1px solid ${theme.colors.cardBorder};
       border-radius: ${zapStyle === 'zap' ? '0px' : '8px'} 8px 0px 0px;
       height: auto;
+      color:white
     `};
 `
 const LabelRow = styled.div`
@@ -127,6 +128,7 @@ export default function CurrencyInputPanel({
   error,
   showBUSD,
   tokensToShow,
+  bgImage
 }: CurrencyInputPanelProps) {
   const { address: account } = useAccount()
   const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
